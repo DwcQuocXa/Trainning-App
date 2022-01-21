@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { getCustomers } from './redux/actions/customers';
+import NavBar from './components/NavBar';
 
 function App() {
+  const dispatch = useDispatch();
+  const [openLeft, setOpenLeft] = useState(false);
+
+  useEffect(() => {
+    console.log('getCustomers');
+    dispatch(getCustomers());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <NavBar open={openLeft} setOpen={setOpenLeft} />
+    </BrowserRouter>
   );
 }
 
