@@ -9,3 +9,11 @@ export const getCustomers = () => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const searchCustomers = (searchTerm) => (dispatch) => {
+  try {
+    dispatch({ type: 'SEARCH_CUSTOMERS', payload: searchTerm });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
