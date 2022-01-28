@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch } from 'react-redux';
 
-import { Search, SearchIconWrapper, StyledInputBase } from './styles';
+import { Search, SearchIconWrapper, StyledInputBase } from './style';
 import { searchCustomers } from '../../../redux/actions';
 
 function SearchBar() {

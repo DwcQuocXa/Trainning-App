@@ -1,18 +1,40 @@
-import React from 'react';
-import { Box, Toolbar, Typography } from '@mui/material';
-import PublicIcon from '@mui/icons-material/Public';
+import React, { useState } from 'react';
+import {
+  Box,
+  Toolbar,
+  Typography,
+  CssBaseline,
+  IconButton,
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import Search from './Search';
-import { AppBar } from './styles';
-import { Link } from 'react-router-dom';
+import PageMenu from './PageMenu';
+import { AppBar } from './style';
 
-function NavBar({ open, setOpen }) {
-  //const color = useAppSelector((state) => state.switchTheme.color);
+function NavBar({ openLeft, setOpenLeft }) {
+  const handleDrawerOpen = () => {
+    setOpenLeft(true);
+  };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static' open={open}>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position='fixed' open={openLeft}>
         <Toolbar>
-          {/* <SwitchTheme open={open} setOpen={setOpen} /> */}
+          <IconButton
+            color='inherit'
+            aria-label='open drawer'
+            onClick={handleDrawerOpen}
+            edge='start'
+            sx={{
+              marginRight: '36px',
+              ...(openLeft && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography
             variant='h6'
             noWrap
@@ -22,11 +44,11 @@ function NavBar({ open, setOpen }) {
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
               Personal Trainer
             </Link>
-            <PublicIcon />
           </Typography>
           <Search />
         </Toolbar>
       </AppBar>
+      <PageMenu open={openLeft} setOpen={setOpenLeft} />
     </Box>
   );
 }

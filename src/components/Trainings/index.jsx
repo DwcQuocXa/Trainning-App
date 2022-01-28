@@ -5,9 +5,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { v4 as uuidv4 } from 'uuid';
 import Moment from 'react-moment';
 
-import useStyles from './style';
+import useStyles, { DataGridDiv } from './style';
 
-const Trainings = () => {
+const Trainings = ({ openLeft, setOpenLeft }) => {
   const classes = useStyles();
   const trainings = useSelector(
     (state) => state.trainings.trainingsList.content
@@ -43,7 +43,7 @@ const Trainings = () => {
   return !trainings?.length ? (
     <CircularProgress className={classes.loading} size={80} />
   ) : (
-    <div className={classes.listTable}>
+    <DataGridDiv open={openLeft}>
       <DataGrid
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -53,7 +53,7 @@ const Trainings = () => {
         rows={rows}
         scrollbarSize={0}
       />
-    </div>
+    </DataGridDiv>
   );
 };
 

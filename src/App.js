@@ -19,10 +19,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar open={openLeft} setOpen={setOpenLeft} />
+      <NavBar openLeft={openLeft} setOpenLeft={setOpenLeft} />
       <Routes>
-        <Route exact path='/customers' element={<Customers />} />
-        <Route exact path='/trainings' element={<Trainings />} />
+        <Route
+          exact
+          path='/customers'
+          element={<Customers openLeft={openLeft} setOpenLeft={setOpenLeft} />}
+        />
+        <Route
+          exact
+          path='/trainings'
+          element={<Trainings openLeft={openLeft} setOpenLeft={setOpenLeft} />}
+        />
       </Routes>
     </BrowserRouter>
   );

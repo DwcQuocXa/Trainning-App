@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import CircularProgress from '@mui/material/CircularProgress';
 import { v4 as uuidv4 } from 'uuid';
 
-import useStyles from './style';
+import useStyles, { DataGridDiv } from './style';
 
-const Customers = () => {
+const Customers = ({ openLeft, setOpenLeft }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const customers = useSelector(
@@ -44,7 +44,7 @@ const Customers = () => {
   return !customers?.length ? (
     <CircularProgress className={classes.loading} size={80} />
   ) : (
-    <div className={classes.listTable}>
+    <DataGridDiv open={openLeft}>
       <DataGrid
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
@@ -54,7 +54,7 @@ const Customers = () => {
         rows={rows}
         scrollbarSize={0}
       />
-    </div>
+    </DataGridDiv>
   );
 };
 
