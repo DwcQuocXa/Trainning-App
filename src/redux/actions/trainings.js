@@ -17,3 +17,21 @@ export const searchTrainings = (searchTerm) => (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const createTraining = (newTraining) => async (dispatch) => {
+  try {
+    const { data } = await api.createTraining(newTraining);
+    dispatch({ type: 'CREATE_TRAINING', payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const deleteTraining = (url) => async (dispatch) => {
+  try {
+    await api.deleteTraining(url);
+    dispatch({ type: 'DELETE_TRAINING', payload: url });
+  } catch (error) {
+    console.log(error.message);
+  }
+};

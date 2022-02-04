@@ -13,6 +13,18 @@ export default function trainings(state = initialState, action) {
         ...state,
         searchTerm,
       };
+    case 'CREATE_TRAINING':
+      return {
+        ...state,
+        trainingsList: state.trainingsList.push(action.payload),
+      };
+    case 'DELETE_TRAINING':
+      return {
+        ...state,
+        trainingsList: state.trainingsList.filter(
+          (training) => training.links[0].href !== action.payload
+        ),
+      };
     default:
       return state;
   }
