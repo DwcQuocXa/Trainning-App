@@ -11,14 +11,13 @@ import { useNavigate } from 'react-router-dom';
 import useStyles, { DataGridDiv } from './style';
 import RemoveModal from '../RemoveModal';
 import { getTrainings, deleteTraining } from '../../redux/actions';
+import BarChart from './BarChart';
 
 const Trainings = ({ openLeft, setOpenLeft }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const trainings = useSelector(
-    (state) => state.trainings.trainingsList.content
-  );
+  const trainings = useSelector((state) => state.trainings.trainingsList.content);
   const searchTerm = useSelector((state) => state.trainings.searchTerm);
   const [pageSize, setPageSize] = React.useState(5);
   const [removeModal, setRemoveModal] = useState(false);
@@ -61,18 +60,14 @@ const Trainings = ({ openLeft, setOpenLeft }) => {
       field: 'date',
       headerName: 'Date',
       width: 400,
-      renderCell: (params) => (
-        <Moment format='MMMM Do YYYY, h:mm:ss a'>{params.value}</Moment>
-      ),
+      renderCell: (params) => <Moment format="MMMM Do YYYY, h:mm:ss a">{params.value}</Moment>,
     },
     { field: 'duration', headerName: 'Duration', width: 400 },
     { field: 'activity', headerName: 'Activity', width: 600 },
   ];
 
   const rows = trainings
-    ?.filter((training) =>
-      training.activity.toLowerCase().includes(searchTerm?.toLowerCase())
-    )
+    ?.filter((training) => training.activity.toLowerCase().includes(searchTerm?.toLowerCase()))
     .map((training) => ({
       id: training.links[0].href,
       date: training.date,
@@ -93,11 +88,8 @@ const Trainings = ({ openLeft, setOpenLeft }) => {
         rows={rows}
         scrollbarSize={0}
       />
-      <RemoveModal
-        removeModal={removeModal}
-        setRemoveModal={setRemoveModal}
-        onSubmitDelete={onSubmitDelete}
-      />
+      <RemoveModal removeModal={removeModal} setRemoveModal={setRemoveModal} onSubmitDelete={onSubmitDelete} />
+      <BarChart />
     </DataGridDiv>
   );
 };
