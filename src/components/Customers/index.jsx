@@ -7,26 +7,20 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { CSVLink } from 'react-csv';
+import Button from '@mui/material/Button';
 
 import useStyles, { DataGridDiv } from './style';
 import CustomersForm from '../CustomersForm';
 import RemoveModal from '../RemoveModal';
 import TrainingForm from './TrainingForm';
-import {
-  updateCustomer,
-  getCustomers,
-  deleteCustomer,
-  getTrainings,
-  createTraining,
-} from '../../redux/actions';
+import { updateCustomer, getCustomers, deleteCustomer, getTrainings, createTraining } from '../../redux/actions';
 
 const Customers = ({ openLeft, setOpenLeft }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const customers = useSelector(
-    (state) => state.customers.customersList.content
-  );
+  const customers = useSelector((state) => state.customers.customersList.content);
   const searchTerm = useSelector((state) => state.customers.searchTerm);
   const [pageSize, setPageSize] = useState(5);
   const [openForm, setOpenForm] = useState(false);
@@ -138,9 +132,7 @@ const Customers = ({ openLeft, setOpenLeft }) => {
   console.log(customers);
 
   const rows = customers
-    ?.filter((customer) =>
-      customer?.firstname?.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    ?.filter((customer) => customer?.firstname?.toLowerCase().includes(searchTerm.toLowerCase()))
     .map((customer) => ({
       id: customer.links[0].href,
       firstname: customer.firstname,
@@ -165,23 +157,19 @@ const Customers = ({ openLeft, setOpenLeft }) => {
         rows={rows}
         scrollbarSize={0}
       />
-      <CustomersForm
-        open={openForm}
-        handleClose={handleCloseForm}
-        onSubmit={onSubmitUpdate}
-        customer={rowData}
-      />
-      <RemoveModal
-        removeModal={removeModal}
-        setRemoveModal={setRemoveModal}
-        onSubmitDelete={onSubmitDelete}
-      />
+      <CustomersForm open={openForm} handleClose={handleCloseForm} onSubmit={onSubmitUpdate} customer={rowData} />
+      <RemoveModal removeModal={removeModal} setRemoveModal={setRemoveModal} onSubmitDelete={onSubmitDelete} />
       <TrainingForm
         open={openTraining}
         handleClose={() => setOpenTraining(false)}
         onSubmit={onSubmitTraining}
         customer={rowData}
       />
+      <Button variant="contained" style={{ marginTop: '5vh' }}>
+        <CSVLink data={customers} style={{ textDecoration: 'none', color: 'white' }}>
+          Export Customers
+        </CSVLink>
+      </Button>
     </DataGridDiv>
   );
 };
