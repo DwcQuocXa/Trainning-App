@@ -6,6 +6,7 @@ import { getCustomers, getTrainings } from './redux/actions';
 import NavBar from './components/NavBar';
 import Customers from './components/Customers';
 import Trainings from './components/Trainings';
+import Calendar from './components/Calendar';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,16 +22,9 @@ function App() {
     <BrowserRouter>
       <NavBar openLeft={openLeft} setOpenLeft={setOpenLeft} />
       <Routes>
-        <Route
-          exact
-          path='/customers'
-          element={<Customers openLeft={openLeft} setOpenLeft={setOpenLeft} />}
-        />
-        <Route
-          exact
-          path='/trainings'
-          element={<Trainings openLeft={openLeft} setOpenLeft={setOpenLeft} />}
-        />
+        <Route exact path="/customers" element={<Customers openLeft={openLeft} setOpenLeft={setOpenLeft} />} />
+        <Route exact path="/trainings" element={<Trainings openLeft={openLeft} setOpenLeft={setOpenLeft} />} />
+        <Route exact path="/calendar" element={<Calendar />} />
       </Routes>
     </BrowserRouter>
   );
